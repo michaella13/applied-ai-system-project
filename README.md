@@ -11,7 +11,7 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
+I built a rule-based music recommender that scores every song in a 20-song catalog against my user preference profile across seven features — mood, genre, energy, valence, tempo, danceability, and acousticness — and returns the top k results. I used a mood-first weighting strategy where mood carries the most points (up to 5), followed by genre (3 pts), with continuous features filling in the rest up to a maximum of 15.5 points total.
 
 ---
 
@@ -66,25 +66,13 @@ You can add more tests in `tests/test_recommender.py`.
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+I tested several user profiles — a pop/happy/high-energy listener, a jazz fan whose genre matched nothing in the catalog, and an all-zero preference user — to see how the scoring held up in each case. I also tested edge cases like an extreme tempo gap (60 vs 400 BPM), which revealed that the formula produces a negative tempo contribution when the difference exceeds 200 BPM, and out-of-cluster moods like "gritty" and "nostalgic," which receive zero partial credit because they are not included in any mood cluster.
 
 ---
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+My recommender only works on a hand-picked catalog of 20 songs, so entire genres and moods a real user might love can simply be absent from the results. Because mood and genre together account for 8 out of 15.5 possible points, the system will almost always favor a song that shares labels with the user over one that is a numerically closer match but belongs to a different genre or mood — which could feel unfair or repetitive in practice.
 
 ---
 
@@ -94,10 +82,9 @@ Read and complete `model_card.md`:
 
 [**Model Card**](model_card.md)
 
-Write 1 to 2 paragraphs here about what you learned:
+Building this made it clear that a recommender is really just a set of rules about what "closeness" means — every weight I chose reflects a judgment call about which features matter most to a listener, and those calls are easy to get wrong. The mood-first design felt intuitive, but I realized it quietly buries songs that might actually sound great to the user just because they carry a different label.
 
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
+I also learned that bias in a recommender does not have to be intentional to be real. My hand-coded mood clusters leave moods like "gritty" and "nostalgic" completely unconnected to anything, so users who prefer those feelings are silently penalized every time — not because I chose to exclude them, but because I never thought to include them in the first place.
 
 
 ---
