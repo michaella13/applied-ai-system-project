@@ -56,3 +56,8 @@ All 3 evaluation profiles passed on the first run. What was surprising is how mu
 
 **Describe your collaboration with AI during this project.**
 AI helped generate the evaluate.py harness and the updated recommendation logic. One helpful suggestion was using a weighted scoring dictionary for continuous features. One flawed suggestion was the initial patch script which introduced an indentation error that took several attempts to fix.
+
+## Demo Walkthrough
+Below is a screenshot of the system running end-to-end with 3 example user profiles:
+
+![Demo Output](assets/Screenshot 2026-04-26 at 10.32.06 PM.png)
