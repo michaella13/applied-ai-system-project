@@ -42,3 +42,17 @@ Output: Thunder by Imagine Dragons - Recommended because: matches your favorite 
 
 ## Reflection
 Building this system showed how recommenders reduce complex human taste into numbers. Small weight changes dramatically shift results, revealing how easily bias can enter. Human judgment is still needed to define what good taste matching means.
+
+## Ethics and Reflection
+
+**What are the limitations or biases in your system?**
+The system only works on a small catalog of songs. It may over-favor certain genres or moods that appear more in the dataset. Users with niche tastes (e.g. jazz, classical) will get poor recommendations since those genres are underrepresented.
+
+**Could your AI be misused, and how would you prevent that?**
+A recommender could create filter bubbles by only showing users what they already like, limiting music discovery. To prevent this, we could add a diversity score that ensures some variety in recommendations.
+
+**What surprised you while testing your AI's reliability?**
+All 3 evaluation profiles passed on the first run. What was surprising is how much the mood match (5 pts) dominates the score — a song with the right mood but wrong genre still ranks higher than a genre match with wrong mood.
+
+**Describe your collaboration with AI during this project.**
+AI helped generate the evaluate.py harness and the updated recommendation logic. One helpful suggestion was using a weighted scoring dictionary for continuous features. One flawed suggestion was the initial patch script which introduced an indentation error that took several attempts to fix.
